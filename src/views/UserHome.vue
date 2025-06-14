@@ -1,3 +1,12 @@
+<script setup>
+import UserLayout from "@/layouts/UserLayout.vue";
+import { useUserStore } from "@/stores/user";
+import { computed } from "vue";
+
+const store = useUserStore();
+const username = computed(() => store.userInfo?.username || "用户");
+</script>
+
 <template>
   <user-layout>
     <template #content>
@@ -8,12 +17,3 @@
     </template>
   </user-layout>
 </template>
-
-<script setup>
-import UserLayout from "@/layouts/UserLayout.vue";
-import { useUserStore } from "@/stores/user";
-import { computed } from "vue";
-
-const store = useUserStore();
-const username = computed(() => store.userInfo?.username || "用户");
-</script>

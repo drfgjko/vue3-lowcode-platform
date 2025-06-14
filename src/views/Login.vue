@@ -1,16 +1,3 @@
-<template>
-  <el-form :model="form">
-    <el-form-item label="用户名">
-      <el-input v-model="form.username" />
-    </el-form-item>
-    <el-form-item label="密码">
-      <el-input type="password" v-model="form.password" />
-    </el-form-item>
-    <el-button type="primary" @click="login">登录</el-button>
-    <el-button @click="$router.push('/register')">去注册</el-button>
-  </el-form>
-</template>
-
 <script setup>
 import { ref } from "vue";
 import { loginAPI } from "@/api/user";
@@ -42,3 +29,16 @@ const login = async () => {
   }
 };
 </script>
+
+<template>
+  <el-form :model="form">
+    <el-form-item label="用户名">
+      <el-input v-model="form.username" />
+    </el-form-item>
+    <el-form-item label="密码">
+      <el-input type="password" v-model="form.password" />
+    </el-form-item>
+    <el-button type="primary" @click="login">登录</el-button>
+    <el-button @click="$router.push('/register')">去注册</el-button>
+  </el-form>
+</template>

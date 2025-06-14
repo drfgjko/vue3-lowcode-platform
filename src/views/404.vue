@@ -1,3 +1,13 @@
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const goHome = () => {
+  router.push("/");
+};
+</script>
+
 <template>
   <div class="not-found-container">
     <div class="not-found-content">
@@ -8,16 +18,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { useRouter } from "vue-router";
-
-const router = useRouter();
-
-const goHome = () => {
-  router.push("/");
-};
-</script>
 
 <style scoped>
 .not-found-container {
