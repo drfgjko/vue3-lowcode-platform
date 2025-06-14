@@ -18,7 +18,7 @@ function logout() {
       <el-button class="logout-btn" @click="logout">退出登录</el-button>
     </el-header>
     <el-main class="main">
-      <slot name="content"></slot>
+      <router-view />
     </el-main>
   </el-container>
 </template>

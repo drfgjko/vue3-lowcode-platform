@@ -1,19 +1,18 @@
-import Login from '@/views/Login.vue'
-import Register from '@/views/Register.vue'
+import Login from '../../views/Login.vue'
 
 export const publicRoutes = [
   {
-    path: '/login', // 路径改成 /login
+    path: '/login',
     name: 'Login',
-    component: Login,
+    component: () => import('@/views/Login.vue'),
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register,
+    component: () => import('@/views/Register.vue'),
   },
   {
     path: '/',
-    redirect: '/login', // 默认重定向到登录页
+    redirect: '/login',
   },
 ]
