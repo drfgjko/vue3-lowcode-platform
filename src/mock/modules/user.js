@@ -9,14 +9,14 @@ if (!localStorage.getItem(usersKey)) {
       id: Mock.Random.guid(),
       username: 'admin',
       password: 'admin123',
-      role: 'admin',
+      role: 'admin'
     },
     {
       id: Mock.Random.guid(),
       username: 'user',
       password: 'user123',
-      role: 'user',
-    },
+      role: 'user'
+    }
   ]
   localStorage.setItem(usersKey, JSON.stringify(defaultUsers))
 }
@@ -32,7 +32,7 @@ Mock.mock('/api/register', 'post', ({ body }) => {
     return { code: 400, message: '用户名和密码不能为空' }
   }
 
-  const exists = users.some((u) => u.username === username)
+  const exists = users.some(u => u.username === username)
   if (exists) {
     return { code: 400, message: '用户已存在' }
   }
@@ -40,7 +40,7 @@ Mock.mock('/api/register', 'post', ({ body }) => {
     id: Mock.Random.guid(),
     username,
     password,
-    role: 'user',
+    role: 'user'
   }
   users.push(newUser)
   localStorage.setItem(usersKey, JSON.stringify(users))
@@ -49,9 +49,7 @@ Mock.mock('/api/register', 'post', ({ body }) => {
 
 Mock.mock('/api/login', 'post', ({ body }) => {
   const { username, password } = JSON.parse(body)
-  const user = users.find(
-    (u) => u.username === username && u.password === password
-  )
+  const user = users.find(u => u.username === username && u.password === password)
   if (!user) {
     return { code: 401, message: '用户名或密码错误' }
   }
@@ -63,8 +61,8 @@ Mock.mock('/api/login', 'post', ({ body }) => {
       userInfo: {
         id: user.id,
         username: user.username,
-        role: user.role,
-      },
-    },
+        role: user.role
+      }
+    }
   }
 })

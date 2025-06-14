@@ -3,7 +3,7 @@
   --header-bg: #488cd1;
   --header-text-color: #ffffff;
 
-  --main-bg: #f5f7fa;        
+  --main-bg: #f5f7fa;
   --main-text-color: #303133;
 
   --button-bg: #409eff;
@@ -12,15 +12,15 @@
   --button-hover-border-color: #66b1ff;
 
   .el-button {
-  background-color: var(--button-bg) !important;
-  color: var(--button-text-color) !important;
-  border-color: var(--button-border-color) !important;
-  transition: all 0.3s ease;
-}
+    background-color: var(--button-bg) !important;
+    color: var(--button-text-color) !important;
+    border-color: var(--button-border-color) !important;
+    transition: all 0.3s ease;
+  }
 
-.el-button:hover {
-  border-color: var(--button-hover-border-color) !important;
-}
+  .el-button:hover {
+    border-color: var(--button-hover-border-color) !important;
+  }
 }
 
 .dark-theme {
@@ -28,7 +28,7 @@
   --header-bg: #1f1f1f;
   --header-text-color: #f2f2f2;
 
-  --main-bg: #121212;         
+  --main-bg: #121212;
   --main-text-color: #cccccc;
 
   --button-bg: #5c6bc0;

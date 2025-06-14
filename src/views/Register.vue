@@ -1,28 +1,28 @@
 <script setup>
-import { ref } from "vue";
-import { registerAPI } from "@/api/user";
-import { useRouter } from "vue-router";
-import { ElMessage } from "element-plus";
+import { ref } from 'vue'
+import { registerAPI } from '@/api/user'
+import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
 const form = ref({
-  username: "",
-  password: "",
-});
+  username: '',
+  password: ''
+})
 
-const router = useRouter();
+const router = useRouter()
 
 const register = async () => {
   try {
-    const res = await registerAPI(form.value);
+    const res = await registerAPI(form.value)
     if (res.code === 200) {
-      ElMessage.success("注册成功，请登录");
-      router.push("/");
+      ElMessage.success('注册成功，请登录')
+      router.push('/')
     } else {
-      ElMessage.error(res.message);
+      ElMessage.error(res.message)
     }
   } catch (e) {
-    ElMessage.error("注册失败");
+    ElMessage.error('注册失败')
   }
-};
+}
 </script>
 
 <template>

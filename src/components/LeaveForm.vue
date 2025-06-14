@@ -1,51 +1,51 @@
 <script setup>
-import { ref } from "vue";
-import { ElMessage } from "element-plus";
-import { submitLeaveAPI } from "@/api/leave";
+import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { submitLeaveAPI } from '@/api/leave'
 
-const formRef = ref();
+const formRef = ref()
 
 const form = ref({
-  type: "",
-  startDate: "",
-  endDate: "",
-  reason: "",
-});
+  type: '',
+  startDate: '',
+  endDate: '',
+  reason: ''
+})
 
 const rules = {
-  type: [{ required: true, message: "请选择请假类型", trigger: "change" }],
-  startDate: [{ required: true, message: "请选择开始日期", trigger: "change" }],
+  type: [{ required: true, message: '请选择请假类型', trigger: 'change' }],
+  startDate: [{ required: true, message: '请选择开始日期', trigger: 'change' }],
   endDate: [
-    { required: true, message: "请选择结束日期", trigger: "change" },
+    { required: true, message: '请选择结束日期', trigger: 'change' },
     {
       validator: (rule, value, callback) => {
         if (value && form.value.startDate && value < form.value.startDate) {
-          callback(new Error("结束时间不能早于开始时间"));
+          callback(new Error('结束时间不能早于开始时间'))
         } else {
-          callback();
+          callback()
         }
       },
-      trigger: "change",
-    },
+      trigger: 'change'
+    }
   ],
-  reason: [{ required: true, message: "请填写请假事由", trigger: "blur" }],
-};
+  reason: [{ required: true, message: '请填写请假事由', trigger: 'blur' }]
+}
 
 function handleSubmit() {
-  formRef.value.validate(async (valid) => {
+  formRef.value.validate(async valid => {
     if (!valid) {
-      ElMessage.error("请检查表单填写内容");
-      return;
+      ElMessage.error('请检查表单填写内容')
+      return
     }
 
     try {
-      await submitLeaveAPI(form);
-      ElMessage.success("请假申请提交成功！");
-      resetForm();
+      await submitLeaveAPI(form)
+      ElMessage.success('请假申请提交成功！')
+      resetForm()
     } catch (err) {
       // 错误提示由拦截器统一处理
     }
-  });
+  })
 }
 </script>
 
@@ -79,11 +79,7 @@ function handleSubmit() {
     </el-form-item>
 
     <el-form-item label="请假事由" prop="reason">
-      <el-input
-        v-model="form.reason"
-        type="textarea"
-        placeholder="请输入原因"
-      />
+      <el-input v-model="form.reason" type="textarea" placeholder="请输入原因" />
     </el-form-item>
 
     <el-form-item>

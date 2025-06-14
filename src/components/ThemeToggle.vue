@@ -1,32 +1,28 @@
 <template>
-  <button
-    class="theme-toggle"
-    @click="toggleTheme"
-    :title="isDark ? '浅色' : '深色'"
-  >
+  <button class="theme-toggle" @click="toggleTheme" :title="isDark ? '浅色' : '深色'">
     <span v-if="isDark">🌞</span>
     <span v-else>🌙</span>
   </button>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted } from 'vue'
 
-const isDark = ref(false);
+const isDark = ref(false)
 
 function toggleTheme() {
-  isDark.value = !isDark.value;
-  document.documentElement.classList.toggle("dark-theme");
-  localStorage.setItem("theme", isDark.value ? "dark" : "light");
+  isDark.value = !isDark.value
+  document.documentElement.classList.toggle('dark-theme')
+  localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
 }
 
 onMounted(() => {
-  const saved = localStorage.getItem("theme");
-  isDark.value = saved === "dark";
+  const saved = localStorage.getItem('theme')
+  isDark.value = saved === 'dark'
   if (isDark.value) {
-    document.documentElement.classList.add("dark-theme");
+    document.documentElement.classList.add('dark-theme')
   }
-});
+})
 </script>
 
 <style scoped>

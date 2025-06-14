@@ -1,5 +1,5 @@
 <script setup>
-import LeaveForm from "@/components/LeaveForm.vue";
+import LeaveForm from '@/components/LeaveForm.vue'
 </script>
 
 <template>

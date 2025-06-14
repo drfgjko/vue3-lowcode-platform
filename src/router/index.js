@@ -6,13 +6,13 @@ import { useUserStore } from '@/stores/user'
 import { getHomePathByRole } from '@/utils/redirect'
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: publicRoutes,
+  routes: publicRoutes
 })
 
 // 动态路由加载器
-const loadDynamicRoutes = (role) => {
+const loadDynamicRoutes = role => {
   const routes = role === 'admin' ? adminRoutes : userRoutes
-  routes.forEach((route) => router.addRoute(route))
+  routes.forEach(route => router.addRoute(route))
   useUserStore().setIsAddRoutes(true)
 }
 

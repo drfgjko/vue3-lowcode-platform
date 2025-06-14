@@ -1,11 +1,11 @@
 <script setup>
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router'
 
-const router = useRouter();
+const router = useRouter()
 
 const goHome = () => {
-  router.push("/");
-};
+  router.push('/')
+}
 </script>
 
 <template>

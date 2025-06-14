@@ -4,11 +4,10 @@ import Mock from 'mockjs'
 const getLeaves = () => JSON.parse(localStorage.getItem('leaves') || '[]')
 
 // 保存到 localStorage
-const saveLeaves = (data) =>
-  localStorage.setItem('leaves', JSON.stringify(data))
+const saveLeaves = data => localStorage.setItem('leaves', JSON.stringify(data))
 
 // 模拟新增
-Mock.mock('/api/leave/add', 'post', (options) => {
+Mock.mock('/api/leave/add', 'post', options => {
   const body = JSON.parse(options.body)
   const list = getLeaves()
   body.id = Date.now()
@@ -22,7 +21,7 @@ Mock.mock('/api/leave/add', 'post', (options) => {
 Mock.mock('/api/leave/list', 'get', () => {
   return {
     code: 200,
-    data: getLeaves().filter((item) => item.status !== '已删除'),
+    data: getLeaves().filter(item => item.status !== '已删除')
   }
 })
 
@@ -32,10 +31,10 @@ Mock.mock('/api/leave/manage', 'get', () => {
 })
 
 // 更改状态
-Mock.mock(/\/api\/leave\/status\/\d+/, 'patch', (options) => {
+Mock.mock(/\/api\/leave\/status\/\d+/, 'patch', options => {
   const id = Number(options.url.split('/').pop())
   const { status } = JSON.parse(options.body)
-  const list = getLeaves().map((item) => {
+  const list = getLeaves().map(item => {
     if (item.id === id) item.status = status
     return item
   })
@@ -44,9 +43,9 @@ Mock.mock(/\/api\/leave\/status\/\d+/, 'patch', (options) => {
 })
 
 // 删除
-Mock.mock(/\/api\/leave\/delete\/\d+/, 'delete', (options) => {
+Mock.mock(/\/api\/leave\/delete\/\d+/, 'delete', options => {
   const id = Number(options.url.split('/').pop())
-  const list = getLeaves().filter((item) => item.id !== id)
+  const list = getLeaves().filter(item => item.id !== id)
   saveLeaves(list)
   return { code: 200, message: '删除成功' }
 })

@@ -1,13 +1,13 @@
 <script setup>
-import { useUserStore } from "@/stores/user";
-import { useRouter } from "vue-router";
+import { useUserStore } from '@/stores/user'
+import { useRouter } from 'vue-router'
 
-const store = useUserStore();
-const router = useRouter();
+const store = useUserStore()
+const router = useRouter()
 
 function logout() {
-  store.logout();
-  router.push("/");
+  store.logout()
+  router.push('/')
 }
 </script>
 

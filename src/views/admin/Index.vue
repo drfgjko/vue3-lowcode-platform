@@ -1,10 +1,10 @@
 <script setup>
-import AdminLayout from "@/layouts/AdminLayout.vue";
-import { useUserStore } from "@/stores/user";
-import { computed } from "vue";
+import AdminLayout from '@/layouts/AdminLayout.vue'
+import { useUserStore } from '@/stores/user'
+import { computed } from 'vue'
 
-const store = useUserStore();
-const username = computed(() => store.userInfo?.username || "管理员");
+const store = useUserStore()
+const username = computed(() => store.userInfo?.username || '管理员')
 </script>
 
 <template>

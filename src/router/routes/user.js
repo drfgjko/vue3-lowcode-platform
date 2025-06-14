@@ -10,14 +10,14 @@ export const userRoutes = [
           {
             path: 'leave',
             component: () => import('@/views/user/LeaveFormPage.vue'),
-            meta: { title: '请假申请' },
+            meta: { title: '请假申请' }
           },
           {
             path: '',
-            redirect: 'leave', // 默认进入 leave
-          },
-        ],
-      },
-    ],
-  },
+            redirect: 'leave' // 默认进入 leave
+          }
+        ]
+      }
+    ]
+  }
 ]
