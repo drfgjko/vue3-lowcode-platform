@@ -1,11 +1,17 @@
-# Vue 3 + Vite
+# 请假管理系统
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+基于 Vue 3 和 Element Plus 的请假管理平台，支持请假申请、审批及历史记录管理。采用 Mock.js + localStorage 模拟后端，实现前后端分离开发。集成 JWT 鉴权和 Pinia 状态管理，使用懒加载和动态路由优化性能，内置主题切换及虚拟列表提升大数据渲染体验。
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## 功能特点
 
-mockjs+localstorage 模拟后端接口/数据库管理
-JWT+pinia+axios 二次封装
-懒路由加载(优化加载速度)+动态路由
-主题切换
-[] 角色权限控制
+- 用户登录鉴权（JWT）
+- 请假申请、修改、删除及审批流程
+- 基于 Pinia 的全局状态管理
+- Mock.js + localStorage 模拟后端接口与数据库
+- Vue Router 动态路由与懒加载
+- 虚拟列表技术支持大数据高性能渲染
+- 主题切换（浅色/深色模式）
+
+## 用途
+
+个人vue3学习成果阶段性检验
