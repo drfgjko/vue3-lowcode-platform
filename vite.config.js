@@ -15,9 +15,9 @@ export default defineConfig({
   ],
   css: {
     preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/styles/element.scss" as *;`,
-      },
+      // scss: {
+      //   additionalData: `@use "@/styles/element.scss" as *;`, //自动@use
+      // },
     },
   },
   resolve: {

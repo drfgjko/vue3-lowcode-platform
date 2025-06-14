@@ -1,12 +1,38 @@
 :root {
-  --el-color-primary: #409eff;
+  /* 浅色主题变量 */
+  --header-bg: #488cd1;
+  --header-text-color: #ffffff;
 
-  /* 通用主题色 */
-  --bg-color: #ffffff;
-  --text-color: #303133;
+  --main-bg: #f5f7fa;        
+  --main-text-color: #303133;
+
+  --button-bg: #409eff;
+  --button-text-color: #ffffff;
+  --button-border-color: #409eff;
+  --button-hover-border-color: #66b1ff;
+
+  .el-button {
+  background-color: var(--button-bg) !important;
+  color: var(--button-text-color) !important;
+  border-color: var(--button-border-color) !important;
+  transition: all 0.3s ease;
 }
 
-[data-theme='dark'] {
-  --bg-color: #1f1f1f;
-  --text-color: #f0f0f0;
+.el-button:hover {
+  border-color: var(--button-hover-border-color) !important;
+}
+}
+
+.dark-theme {
+  /* 深色主题变量 */
+  --header-bg: #1f1f1f;
+  --header-text-color: #f2f2f2;
+
+  --main-bg: #121212;         
+  --main-text-color: #cccccc;
+
+  --button-bg: #5c6bc0;
+  --button-text-color: #ffffff;
+  --button-border-color: #5c6bc0;
+  --button-hover-border-color: #7986cb;
 }
