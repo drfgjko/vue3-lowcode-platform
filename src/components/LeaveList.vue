@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { ElMessage } from 'element-plus'
+import { ref, onMounted, h } from 'vue'
+import { ElMessage, ElButton, ElTableV2 } from 'element-plus'
 import dayjs from 'dayjs'
 import { getLeaveListAPI, deleteLeaveAPI } from '@/api/leave'
 import { useUserStore } from '@/stores/user'
@@ -30,6 +30,7 @@ const fetchLeaves = async () => {
     const res = await getLeaveListAPI(userId)
     if (res.code === 200) {
       leaveList.value = res.data
+      // console.log('data', leaveList.value)
     }
   } catch (e) {
     ElMessage.error('获取请假记录失败')
@@ -64,39 +65,97 @@ const handleUpdate = updatedRow => {
   }
 }
 
-const formatDate = (row, column, cellValue) =>
-  cellValue ? dayjs(cellValue).format('YYYY-MM-DD') : ''
+const columns = [
+  {
+    key: 'type',
+    title: '类型',
+    width: 100,
+    cellRenderer: params => {
+      const value = params.rowData?.type
+      return typeLabels[value] || value || ''
+    }
+  },
+  {
+    key: 'startDate',
+    title: '开始时间',
+    width: 120,
+    cellRenderer: params => {
+      const value = params.rowData?.startDate
+      return value ? dayjs(value).format('YYYY-MM-DD') : ''
+    }
+  },
+  {
+    key: 'endDate',
+    title: '结束时间',
+    width: 120,
+    cellRenderer: params => {
+      const value = params.rowData?.endDate
+      return value ? dayjs(value).format('YYYY-MM-DD') : ''
+    }
+  },
+  {
+    key: 'reason',
+    title: '事由',
+    width: 200,
+    cellRenderer: params => params.rowData?.reason || ''
+  },
+  {
+    key: 'status',
+    title: '状态',
+    width: 100,
+    cellRenderer: params => {
+      const value = params.rowData?.status
+      return statusLabels[value] || value || ''
+    }
+  },
+  {
+    key: 'actions',
+    title: '操作',
+    width: 180,
+    cellRenderer: params => {
+      const row = params.rowData // 注意这里是 rowData
+      if (!row) return ''
 
-const formatType = (row, column, cellValue) => typeLabels[cellValue] || cellValue
-
-const formatStatus = (row, column, cellValue) => statusLabels[cellValue] || cellValue
+      return h('div', { style: 'display: flex; gap: 8px' }, [
+        h(
+          ElButton,
+          {
+            size: 'small',
+            type: 'primary',
+            disabled: row.status !== 'pending',
+            onClick: () => handleEdit(row)
+          },
+          () => '修改'
+        ),
+        h(
+          ElButton,
+          {
+            size: 'small',
+            type: 'danger',
+            onClick: () => handleDelete(row.id)
+          },
+          () => '撤销'
+        )
+      ])
+    }
+  }
+]
 
 onMounted(() => {
   fetchLeaves()
 })
 </script>
+
 <template>
   <div>
-    <el-table :data="leaveList" style="width: 100%">
-      <el-table-column prop="type" label="类型" width="120" :formatter="formatType" />
-      <el-table-column prop="startDate" label="开始时间" width="120" :formatter="formatDate" />
-      <el-table-column prop="endDate" label="结束时间" width="120" :formatter="formatDate" />
-      <el-table-column prop="reason" label="事由" />
-      <el-table-column prop="status" label="状态" width="100" :formatter="formatStatus" />
-      <el-table-column label="操作" width="180">
-        <template #default="{ row }">
-          <el-button
-            size="small"
-            type="primary"
-            @click="handleEdit(row)"
-            :disabled="row.status !== 'pending'"
-            >修改</el-button
-          >
-          <el-button size="small" type="danger" @click="handleDelete(row.id)">撤销</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-
+    <el-table-v2
+      :data="leaveList"
+      :columns="columns"
+      row-key="id"
+      :width="900"
+      :height="500"
+      fixed
+    />
     <EditLeaveDialog v-model="dialogVisible" :data="currentRow" @submit="handleUpdate" />
   </div>
 </template>
