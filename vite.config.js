@@ -10,16 +10,16 @@ export default defineConfig({
     vue(),
     viteMockServe({
       mockPath: path.resolve(__dirname, 'src/mock'), //不能使用别名
-      localEnable: true,
-    }),
+      localEnable: true
+    })
   ],
   css: {
-    preprocessorOptions: {},
+    preprocessorOptions: {}
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, './src')
     },
-    extensions: ['.js', '.json', '.vue'],
-  },
+    extensions: ['.js', '.json', '.vue']
+  }
 })
