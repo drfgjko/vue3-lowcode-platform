@@ -1,0 +1,12 @@
+:root {
+  --el-color-primary: #409eff;
+
+  /* 通用主题色 */
+  --bg-color: #ffffff;
+  --text-color: #303133;
+}
+
+[data-theme='dark'] {
+  --bg-color: #1f1f1f;
+  --text-color: #f0f0f0;
+}
