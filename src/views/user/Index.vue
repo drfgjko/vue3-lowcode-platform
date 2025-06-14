@@ -1,6 +1,6 @@
 <script setup>
 import { useUserStore } from '@/stores/user'
-import { computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
 const store = useUserStore()
@@ -11,25 +11,29 @@ const route = useRoute()
 
 // 统一管理 Tabs 信息
 const tabs = [
-  { label: '请假申请', name: 'leave', path: '/user/leave' },
-  { label: '申请记录', name: 'records', path: '/user/records' }
+  { label: '请假申请', name: 'leave' },
+  { label: '申请记录', name: 'records' }
 ]
 
-// 计算当前激活的 tab name，方便绑定
-const activeTab = computed(() => {
-  // 取当前路由的最后一级路径作为tab标识
+const activeTab = ref('leave')
+
+// 初始时同步路由的最后一级到 activeTab
+const syncTabFromRoute = () => {
   const segments = route.path.split('/')
-  return segments[segments.length - 1] || 'leave' // 默认leave
-})
+  activeTab.value = segments[segments.length - 1] || 'leave'
+}
+
+syncTabFromRoute()
+
+watch(
+  () => route.path,
+  () => {
+    syncTabFromRoute()
+  }
+)
 
 function handleTabChange(newTabName) {
-  const tab = tabs.find(t => t.name === newTabName)
-  if (tab) {
-    console.log('当前路由path:', route.path)
-    console.log('跳转到:', tab.path)
-
-    router.push(tab.path)
-  }
+  router.push(`/user/${newTabName}`)
 }
 </script>
 

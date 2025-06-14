@@ -2,6 +2,8 @@
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { submitLeaveAPI } from '@/api/leave'
+import { useUserStore } from '@/stores/user'
+const store = useUserStore()
 
 const formRef = ref()
 
@@ -37,15 +39,32 @@ function handleSubmit() {
       ElMessage.error('请检查表单填写内容')
       return
     }
-
     try {
-      await submitLeaveAPI(form)
+      const userId = store.userInfo?.id
+      const submitData = {
+        ...form.value,
+        userId
+      }
+      // console.log('userId', userId)
+      // console.log('submitData', submitData)
+      await submitLeaveAPI(submitData)
       ElMessage.success('请假申请提交成功！')
       resetForm()
     } catch (err) {
       // 错误提示由拦截器统一处理
     }
   })
+}
+
+function resetForm() {
+  form.value = {
+    type: '',
+    startDate: null,
+    endDate: null,
+    reason: ''
+  }
+  // 同时重置表单校验状态
+  formRef.value?.resetFields()
 }
 </script>
 
@@ -61,21 +80,11 @@ function handleSubmit() {
     </el-form-item>
 
     <el-form-item label="开始时间" prop="startDate">
-      <el-date-picker
-        v-model="form.startDate"
-        type="date"
-        placeholder="请选择开始日期"
-        value-format="yyyy-MM-dd"
-      />
+      <el-date-picker v-model="form.startDate" type="date" placeholder="请选择开始日期" />
     </el-form-item>
 
     <el-form-item label="结束时间" prop="endDate">
-      <el-date-picker
-        v-model="form.endDate"
-        type="date"
-        placeholder="请选择结束日期"
-        value-format="yyyy-MM-dd"
-      />
+      <el-date-picker v-model="form.endDate" type="date" placeholder="请选择结束日期" />
     </el-form-item>
 
     <el-form-item label="请假事由" prop="reason">
@@ -83,7 +92,7 @@ function handleSubmit() {
     </el-form-item>
 
     <el-form-item>
-      <el-button type="primary" @click="handleSubmit">提交</el-button>
+      <el-button @click="handleSubmit">提交</el-button>
     </el-form-item>
   </el-form>
 </template>

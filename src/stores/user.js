@@ -28,6 +28,7 @@ export const useUserStore = defineStore('user', () => {
     isAddRoutes.value = false
     Cookies.remove('token')
     localStorage.removeItem('userInfo')
+    localStorage.removeItem('leaves')
   }
 
   return {

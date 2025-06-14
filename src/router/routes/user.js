@@ -9,8 +9,15 @@ export const userRoutes = [
         children: [
           {
             path: 'leave',
+            name: 'Leave',
             component: () => import('@/views/user/LeaveFormPage.vue'),
             meta: { title: '请假申请' }
+          },
+          {
+            path: 'records',
+            name: 'Records',
+            component: () => import('@/views/user/LeaveListPage.vue'),
+            meta: { title: '申请记录' }
           },
           {
             path: '',
