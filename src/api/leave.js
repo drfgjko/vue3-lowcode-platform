@@ -10,6 +10,11 @@ export function getLeaveListAPI(userId) {
   return request.get('/leave/list', { params: { userId } })
 }
 
+// 修改请假
+export function updateLeaveAPI(data) {
+  return request.patch(`/leave/update/${data.id}`, data)
+}
+
 // 管理端：查询所有申请
 export function getAllLeavesAPI(params) {
   return request.get('/leave/manage', { params })

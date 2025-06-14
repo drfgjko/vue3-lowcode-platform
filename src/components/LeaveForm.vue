@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import { submitLeaveAPI } from '@/api/leave'
 import { useUserStore } from '@/stores/user'
@@ -66,6 +66,14 @@ function resetForm() {
   // 同时重置表单校验状态
   formRef.value?.resetFields()
 }
+
+// 监听开始时间变化，手动触发结束时间校验
+watch(
+  () => form.value.startDate,
+  () => {
+    formRef.value?.validateField('endDate')
+  }
+)
 </script>
 
 <template>

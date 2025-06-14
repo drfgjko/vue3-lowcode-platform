@@ -1,4 +1,9 @@
 import Mock from 'mockjs'
+const statusEnum = {
+  PENDING: 'pending',
+  APPROVED: 'approved',
+  REJECTED: 'rejected'
+}
 
 // 获取 localStorage 数据
 const getLeaves = () => JSON.parse(localStorage.getItem('leaves') || '[]')
@@ -12,7 +17,7 @@ Mock.mock('/api/leave/add', 'post', options => {
   const list = getLeaves()
   // 追加
   body.id = Date.now()
-  body.status = '待审批'
+  body.status = statusEnum.PENDING // ✅ 改为英文
   list.push(body)
   saveLeaves(list)
   return { code: 200, message: '提交成功' }
@@ -29,6 +34,20 @@ Mock.mock(/\/api\/leave\/list/, 'get', options => {
     code: 200,
     data
   }
+})
+
+// 模拟用户修改接口
+Mock.mock(/\/api\/leave\/update\/\d+/, 'patch', options => {
+  const id = Number(options.url.split('/').pop())
+  const body = JSON.parse(options.body)
+  const list = getLeaves().map(item => {
+    if (item.id === id && item.status === '待审批') {
+      return { ...item, ...body }
+    }
+    return item
+  })
+  saveLeaves(list)
+  return { code: 200, message: '修改成功' }
 })
 
 // 管理端获取所有
